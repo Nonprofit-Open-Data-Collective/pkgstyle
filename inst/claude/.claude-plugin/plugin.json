@@ -1,0 +1,9 @@
+{
+  "name": "nodc",
+  "version": "0.2.0",
+  "description": "Skills for NODC R packages: pkgdown sites in the shared pkgstyle look, and the house style for example code in vignettes, articles, README and @examples.",
+  "author": {
+    "name": "Nonprofit Open Data Collective"
+  },
+  "homepage": "https://github.com/Nonprofit-Open-Data-Collective/pkgstyle"
+}
