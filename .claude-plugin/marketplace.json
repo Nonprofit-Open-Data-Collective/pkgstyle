@@ -1,0 +1,15 @@
+{
+  "name": "nodc",
+  "description": "Claude Code plugins for Nonprofit Open Data Collective R packages.",
+  "owner": {
+    "name": "Nonprofit Open Data Collective",
+    "url": "https://github.com/Nonprofit-Open-Data-Collective"
+  },
+  "plugins": [
+    {
+      "name": "nodc",
+      "source": "./inst/claude",
+      "description": "Skills for NODC R packages: pkgdown sites in the shared pkgstyle look, and the house style for example code in vignettes, articles, README and @examples."
+    }
+  ]
+}

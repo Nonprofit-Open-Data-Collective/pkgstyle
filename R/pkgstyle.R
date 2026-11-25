@@ -49,23 +49,34 @@ use_pkgstyle <- function(path = ".") {
   invisible(path)
 }
 
-#' Install the agent skill for pkgstyle sites
+#' Install the NODC agent skills
 #'
-#' Copies the Claude Code skill shipped with pkgstyle to
-#' `<dir>/nodc-pkgdown/SKILL.md`. Once installed, an agent asked to "add
-#' pkgdown documentation and apply the pkgstyle style" follows it.
+#' Copies the Claude Code skills shipped with pkgstyle to `<dir>/<skill>/SKILL.md`:
+#'
+#' * `nodc-pkgdown`: set up or restyle a NODC pkgdown site.
+#' * `nodc-example-code`: the house style for example code in vignettes,
+#'   articles, README and `@examples`.
+#'
+#' The same skills are also published as a Claude Code plugin from this
+#' repository, which is the better route when you work on several computers
+#' (see the README). Use one route or the other, not both, or each skill is
+#' listed twice.
 #'
 #' @param dir The skills folder. The default is the user-level folder, which
 #'   every project on this computer sees.
-#' @param overwrite Replace an installed copy.
-#' @return The path of the installed file, invisibly.
+#' @param overwrite Replace installed copies.
+#' @return The paths of the installed files, invisibly.
 #' @export
 install_pkgstyle_skill <- function(dir = file.path("~", ".claude", "skills"), overwrite = TRUE) {
-  to <- file.path(path.expand(dir), "nodc-pkgdown")
-  dir.create(to, recursive = TRUE, showWarnings = FALSE)
-  out <- file.path(to, "SKILL.md")
-  ok <- file.copy(system.file("agent", "SKILL.md", package = "pkgstyle"), out, overwrite = overwrite)
-  if (!ok) stop("Could not write ", out, if (!overwrite) " (it exists; use overwrite = TRUE)")
-  message("Installed ", out)
+  src    <- system.file("claude", "skills", package = "pkgstyle")
+  skills <- list.files(src)
+  out    <- file.path(path.expand(dir), skills, "SKILL.md")
+
+  for (i in seq_along(skills)) {
+    dir.create(dirname(out[i]), recursive = TRUE, showWarnings = FALSE)
+    ok <- file.copy(file.path(src, skills[i], "SKILL.md"), out[i], overwrite = overwrite)
+    if (!ok) stop("Could not write ", out[i], if (!overwrite) " (it exists; use overwrite = TRUE)")
+    message("Installed ", out[i])
+  }
   invisible(out)
 }
